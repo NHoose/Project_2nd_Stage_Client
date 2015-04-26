@@ -20,36 +20,40 @@
             android:minHeight="?attr/actionBarSize">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:id="@+id/BtnHome"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/home_black"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kalender"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:id="@+id/BtnKal"
                 android:layout_alignLeft="@+id/BtnHome"
-                android:layout_alignStart="@+id/BtnHome" />
+                android:layout_alignStart="@+id/BtnHome"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/calendar_black"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Postfach"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:id="@+id/BtnPost"
                 android:layout_alignLeft="@+id/BtnKal"
-                android:layout_alignStart="@+id/BtnKal" />
+                android:layout_alignStart="@+id/BtnKal"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/mail_black"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Benachrichtigungen"
-                android:id="@+id/BtnBenachritungen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/BtnNews"
                 android:layout_alignLeft="@+id/BtnPost"
-                android:layout_alignStart="@+id/BtnPost" />
+                android:layout_alignStart="@+id/BtnPost"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/news_black"/>
 
         </android.support.v7.widget.Toolbar>
 

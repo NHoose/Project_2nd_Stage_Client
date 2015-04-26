@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     Button HomeButton;
     Button KalButton;
     Button PostButton;
-    Button BenachrichtigungenButton;
+    Button NewsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +39,18 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
+        // Items displayed in Drawer
         String[] NavDrawerItemsArray = { "Home", "Kalender", "Postfach", "Benachrichtigungen" };
+        // Set the adapter for the list view
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, NavDrawerItemsArray));
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        //mTitle = mDrawerTitle = getTitle();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
@@ -80,12 +79,13 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        // swap Fragment_container with HomeFragment and mark home as selected
         SwitchToHome();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
         KalButton = (Button) findViewById(R.id.BtnKal);
         PostButton = (Button) findViewById(R.id.BtnPost);
-        BenachrichtigungenButton = (Button) findViewById(R.id.BtnBenachritungen);
+        NewsButton = (Button) findViewById(R.id.BtnNews);
 
         HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +108,10 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        BenachrichtigungenButton.setOnClickListener(new View.OnClickListener() {
+        NewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwitchToBenachrichtigungen();
+                SwitchToNews();
             }
         });
     }
@@ -151,19 +151,6 @@ public class MainActivity extends ActionBarActivity {
     /** Swaps fragments in the main content view */
 
     private void selectItem(int position) {
-        /* Create a new fragment and specify the planet to show based on position
-        Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.Home_Screen, fragment)
-                .commit();
-
-        */
 
         switch (position) {
 
@@ -181,7 +168,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 3:
                 mDrawerLayout.closeDrawer(mDrawerList);
-                SwitchToBenachrichtigungen();
+                SwitchToNews();
                 break;
         }
     }
@@ -195,6 +182,18 @@ public class MainActivity extends ActionBarActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, homeFragment)
                 .commit();
+
+        HomeButton = (Button) findViewById(R.id.BtnHome);
+        HomeButton.setBackgroundResource(R.drawable.home_white);
+
+        KalButton = (Button) findViewById(R.id.BtnKal);
+        KalButton.setBackgroundResource(R.drawable.calendar_black);
+
+        PostButton = (Button) findViewById(R.id.BtnPost);
+        PostButton.setBackgroundResource(R.drawable.mail_black);
+
+        NewsButton = (Button) findViewById(R.id.BtnNews);
+        NewsButton.setBackgroundResource(R.drawable.news_black);
     }
 
     private void SwitchToKal() {
@@ -206,16 +205,64 @@ public class MainActivity extends ActionBarActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, kalFragment)
                 .commit();
+
+        HomeButton = (Button) findViewById(R.id.BtnHome);
+        HomeButton.setBackgroundResource(R.drawable.home_black);
+
+        KalButton = (Button) findViewById(R.id.BtnKal);
+        KalButton.setBackgroundResource(R.drawable.calendar_white);
+
+        PostButton = (Button) findViewById(R.id.BtnPost);
+        PostButton.setBackgroundResource(R.drawable.mail_black);
+
+        NewsButton = (Button) findViewById(R.id.BtnNews);
+        NewsButton.setBackgroundResource(R.drawable.news_black);
     }
 
     private void SwitchToPost() {
         Toast.makeText(getApplicationContext(), "Postfach", Toast.LENGTH_SHORT).show();
         mDrawerList.setItemChecked(2, true);
+
+        PostFragment postFragment = new PostFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, postFragment)
+                .commit();
+
+        HomeButton = (Button) findViewById(R.id.BtnHome);
+        HomeButton.setBackgroundResource(R.drawable.home_black);
+
+        KalButton = (Button) findViewById(R.id.BtnKal);
+        KalButton.setBackgroundResource(R.drawable.calendar_black);
+
+        PostButton = (Button) findViewById(R.id.BtnPost);
+        PostButton.setBackgroundResource(R.drawable.mail_white);
+
+        NewsButton = (Button) findViewById(R.id.BtnNews);
+        NewsButton.setBackgroundResource(R.drawable.news_black);
     }
 
-    private void SwitchToBenachrichtigungen() {
+    private void SwitchToNews() {
         Toast.makeText(getApplicationContext(), "Benachrichtigungen", Toast.LENGTH_SHORT).show();
         mDrawerList.setItemChecked(3, true);
+
+        NewsFragment newsFragment = new NewsFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, newsFragment)
+                .commit();
+
+        HomeButton = (Button) findViewById(R.id.BtnHome);
+        HomeButton.setBackgroundResource(R.drawable.home_black);
+
+        KalButton = (Button) findViewById(R.id.BtnKal);
+        KalButton.setBackgroundResource(R.drawable.calendar_black);
+
+        PostButton = (Button) findViewById(R.id.BtnPost);
+        PostButton.setBackgroundResource(R.drawable.mail_black);
+
+        NewsButton = (Button) findViewById(R.id.BtnNews);
+        NewsButton.setBackgroundResource(R.drawable.news_white);
     }
 
     @Override
