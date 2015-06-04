@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/NavItem_Home"
+            android:checked="true"
+            android:icon="@drawable/home_black"
+            android:title="Home" />
+        <item
+            android:id="@+id/NavItem_Kal"
+            android:icon="@drawable/calendar_black"
+            android:title="Kalender" />
+        <item
+            android:id="@+id/NavItem_Post"
+            android:checked="true"
+            android:icon="@drawable/mail_black"
+            android:title="Postfach" />
+        <item
+            android:id="@+id/NavItem_News"
+            android:icon="@drawable/news_black"
+            android:title="Benachrichtigungen" />
+    </group>
+</menu>

@@ -3,6 +3,9 @@ package de.team_eduart.project2ndstage;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,10 +23,9 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
+    private NavigationView mNavigationView;
 
     Button HomeButton;
     Button KalButton;
@@ -35,49 +37,49 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // Items displayed in Drawer
-        String[] NavDrawerItemsArray = { "Home", "Kalender", "Postfach", "Benachrichtigungen" };
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, NavDrawerItemsArray));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-
-            /** Called when a drawer has settled in a completely closed state. */
-            /*
-            public void onDrawerClosed(View view) {
-
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mTitle);
-            }
-            */
-
-            /** Called when a drawer has settled in a completely open state. */
-            /*
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(mDrawerTitle);
-            }
-            */
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.NavView);
+
+        toolbar.setNavigationIcon(R.drawable.ic_drawer_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                switch (menuItem.getItemId()) {
+                    case R.id.NavItem_Home:
+                        mDrawerLayout.closeDrawers();
+                        SwitchToHome();
+                        return true;
+                    case R.id.NavItem_Kal:
+                        mDrawerLayout.closeDrawers();
+                        SwitchToKal();
+                        return true;
+                    case R.id.NavItem_Post:
+                        mDrawerLayout.closeDrawers();
+                        SwitchToPost();
+                        return true;
+                    case R.id.NavItem_News:
+                        mDrawerLayout.closeDrawers();
+                        SwitchToNews();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
 
         // swap Fragment_container with HomeFragment and mark home as selected
         SwitchToHome();
@@ -116,66 +118,11 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    /* Called whenever we call invalidateOptionsMenu()
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }
-    */
-
-
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    /** Swaps fragments in the main content view */
-
-    private void selectItem(int position) {
-
-        switch (position) {
-
-            case 0:
-                mDrawerLayout.closeDrawer(mDrawerList);
-                SwitchToHome();
-                break;
-            case 1:
-                mDrawerLayout.closeDrawer(mDrawerList);
-                SwitchToKal();
-                break;
-            case 2:
-                mDrawerLayout.closeDrawer(mDrawerList);
-                SwitchToPost();
-                break;
-            case 3:
-                mDrawerLayout.closeDrawer(mDrawerList);
-                SwitchToNews();
-                break;
-        }
-    }
-
     private void SwitchToHome() {
         Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-        mDrawerList.setItemChecked(0, true);
+
+        Menu menu = mNavigationView.getMenu();
+        menu.getItem(0).setChecked(true);
 
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -198,7 +145,9 @@ public class MainActivity extends ActionBarActivity {
 
     private void SwitchToKal() {
         Toast.makeText(getApplicationContext(), "Kalender", Toast.LENGTH_SHORT).show();
-        mDrawerList.setItemChecked(1, true);
+
+        Menu menu = mNavigationView.getMenu();
+        menu.getItem(1).setChecked(true);
 
         KalenderFragment kalFragment = new KalenderFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -221,7 +170,9 @@ public class MainActivity extends ActionBarActivity {
 
     private void SwitchToPost() {
         Toast.makeText(getApplicationContext(), "Postfach", Toast.LENGTH_SHORT).show();
-        mDrawerList.setItemChecked(2, true);
+
+        Menu menu = mNavigationView.getMenu();
+        menu.getItem(2).setChecked(true);
 
         PostFragment postFragment = new PostFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -244,7 +195,9 @@ public class MainActivity extends ActionBarActivity {
 
     private void SwitchToNews() {
         Toast.makeText(getApplicationContext(), "Benachrichtigungen", Toast.LENGTH_SHORT).show();
-        mDrawerList.setItemChecked(3, true);
+
+        Menu menu = mNavigationView.getMenu();
+        menu.getItem(3).setChecked(true);
 
         NewsFragment newsFragment = new NewsFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -290,9 +243,6 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
