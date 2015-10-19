@@ -19,5 +19,11 @@
             android:id="@+id/NavItem_News"
             android:icon="@drawable/news_black"
             android:title="Benachrichtigungen" />
+        <item
+            android:id="@+id/NavItem_Settings"
+            android:title="@string/NavDrawer_Settings" />
+        <item
+            android:id="@+id/NavItem_Login"
+            android:title="@string/NavDrawer_Login" />
     </group>
 </menu>

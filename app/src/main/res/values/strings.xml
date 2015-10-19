@@ -7,7 +7,10 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="NavDrawer_Settings">Einstellungen</string>
+    <string name="NavDrawer_Login">Anmelden</string>
+    <string name="NavDrawer_Logout">Abmelden</string>
 
 </resources>

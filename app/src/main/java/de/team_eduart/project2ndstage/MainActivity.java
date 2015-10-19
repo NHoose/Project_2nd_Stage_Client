@@ -2,6 +2,7 @@ package de.team_eduart.project2ndstage;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -74,6 +75,19 @@ public class MainActivity extends ActionBarActivity {
                     case R.id.NavItem_News:
                         mDrawerLayout.closeDrawers();
                         SwitchToNews();
+                        return true;
+                    case R.id.NavItem_Settings:
+                        mDrawerLayout.closeDrawers();
+                        Intent openSettings = new Intent(MainActivity.this, Settings.class);
+                        startActivity(openSettings);
+                        return true;
+                    case R.id.NavItem_Login:
+                        mDrawerLayout.closeDrawers();
+                        Login();
+                        return true;
+                    case R.id.NavItem_Logout:
+                        Logout();
+                        mDrawerLayout.closeDrawers();
                         return true;
                     default:
                         return true;
@@ -218,18 +232,37 @@ public class MainActivity extends ActionBarActivity {
         NewsButton.setBackgroundResource(R.drawable.news_white);
     }
 
+    private void Logout() {
+        Toast.makeText(getApplicationContext(), "Ausgeloggt", Toast.LENGTH_SHORT).show();
+
+        Menu menu = mNavigationView.getMenu();
+        menu.clear();
+        mNavigationView.inflateMenu(R.menu.navdrawer_loggedout);
+    }
+
+    private void Login() {
+        Intent openLogin = new Intent(MainActivity.this, Login.class);
+        startActivity(openLogin);
+
+        Menu menu = mNavigationView.getMenu();
+        menu.clear();
+        mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
+    }
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
