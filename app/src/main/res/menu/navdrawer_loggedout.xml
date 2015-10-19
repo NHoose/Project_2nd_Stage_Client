@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/MainFragments"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/NavItem_Home"
             android:checked="true"
@@ -19,6 +20,10 @@
             android:id="@+id/NavItem_News"
             android:icon="@drawable/news_black"
             android:title="Benachrichtigungen" />
+    </group>
+
+    <group android:id="@+id/more"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/NavItem_Settings"
             android:title="@string/NavDrawer_Settings" />
