@@ -3,6 +3,7 @@ package de.team_eduart.project2ndstage;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -86,8 +87,8 @@ public class MainActivity extends ActionBarActivity {
                         Login();
                         return true;
                     case R.id.NavItem_Logout:
-                        Logout();
                         mDrawerLayout.closeDrawers();
+                        Logout();
                         return true;
                     default:
                         return true;
@@ -97,6 +98,9 @@ public class MainActivity extends ActionBarActivity {
 
         // swap Fragment_container with HomeFragment and mark home as selected
         SwitchToHome();
+
+        //check current LoginState and change NavDrawer
+        refreshNavDrawerMenu();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
         KalButton = (Button) findViewById(R.id.BtnKal);
@@ -133,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void SwitchToHome() {
-        Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(0).setChecked(true);
@@ -158,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void SwitchToKal() {
-        Toast.makeText(getApplicationContext(), "Kalender", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Kalender", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(1).setChecked(true);
@@ -183,7 +187,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void SwitchToPost() {
-        Toast.makeText(getApplicationContext(), "Postfach", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Postfach", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(2).setChecked(true);
@@ -208,7 +212,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void SwitchToNews() {
-        Toast.makeText(getApplicationContext(), "Benachrichtigungen", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Benachrichtigungen", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(3).setChecked(true);
@@ -233,20 +237,44 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void Logout() {
+        // wenn erfolgreich ausgeloggt
         Toast.makeText(getApplicationContext(), "Ausgeloggt", Toast.LENGTH_SHORT).show();
 
-        Menu menu = mNavigationView.getMenu();
-        menu.clear();
-        mNavigationView.inflateMenu(R.menu.navdrawer_loggedout);
+        SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = NetworkState.edit();
+
+        editor.putBoolean("LoggedIn", false);
+        editor.commit();
+
+        refreshNavDrawerMenu();
     }
 
     private void Login() {
         Intent openLogin = new Intent(MainActivity.this, Login.class);
         startActivity(openLogin);
+    }
 
-        Menu menu = mNavigationView.getMenu();
-        menu.clear();
-        mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
+    private void refreshNavDrawerMenu() {
+        SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
+
+        Boolean LoggedIn = NetworkState.getBoolean("LoggedIn", false);
+
+        if (LoggedIn == true) {
+            Menu menu = mNavigationView.getMenu();
+            menu.clear();
+            mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
+        } else {
+            Menu menu = mNavigationView.getMenu();
+            menu.clear();
+            mNavigationView.inflateMenu(R.menu.navdrawer_loggedout);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        refreshNavDrawerMenu();
     }
 
     @Override
