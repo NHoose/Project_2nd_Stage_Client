@@ -34,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
     Button PostButton;
     Button NewsButton;
 
+    String CurrentlySelectedFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,6 +161,8 @@ public class MainActivity extends ActionBarActivity {
 
         NewsButton = (Button) findViewById(R.id.BtnNews);
         NewsButton.setBackgroundResource(R.drawable.news_black);
+
+        CurrentlySelectedFragment = "Home";
     }
 
     private void SwitchToKal() {
@@ -184,6 +188,8 @@ public class MainActivity extends ActionBarActivity {
 
         NewsButton = (Button) findViewById(R.id.BtnNews);
         NewsButton.setBackgroundResource(R.drawable.news_black);
+
+        CurrentlySelectedFragment = "Calendar";
     }
 
     private void SwitchToPost() {
@@ -209,6 +215,8 @@ public class MainActivity extends ActionBarActivity {
 
         NewsButton = (Button) findViewById(R.id.BtnNews);
         NewsButton.setBackgroundResource(R.drawable.news_black);
+
+        CurrentlySelectedFragment = "Post";
     }
 
     private void SwitchToNews() {
@@ -234,6 +242,8 @@ public class MainActivity extends ActionBarActivity {
 
         NewsButton = (Button) findViewById(R.id.BtnNews);
         NewsButton.setBackgroundResource(R.drawable.news_white);
+
+        CurrentlySelectedFragment = "News";
     }
 
     private void Logout() {
@@ -263,11 +273,25 @@ public class MainActivity extends ActionBarActivity {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
             mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
+            reselectlastfragment();
         } else {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
             mNavigationView.inflateMenu(R.menu.navdrawer_loggedout);
+            reselectlastfragment();
         }
+    }
+
+    private void reselectlastfragment() {
+        Menu menu = mNavigationView.getMenu();
+
+        //Toast.makeText(getApplicationContext(), CurrentlySelectedFragment, Toast.LENGTH_SHORT).show();
+
+        if (CurrentlySelectedFragment == "Home") {menu.getItem(0).setChecked(true);}
+        else if (CurrentlySelectedFragment == "Calendar") {menu.getItem(1).setChecked(true);}
+        else if (CurrentlySelectedFragment == "Post") {menu.getItem(2).setChecked(true);}
+        else if (CurrentlySelectedFragment == "News") {menu.getItem(3).setChecked(true);}
+
     }
 
     @Override
@@ -275,6 +299,7 @@ public class MainActivity extends ActionBarActivity {
         super.onResume();
 
         refreshNavDrawerMenu();
+        SwitchToHome();
     }
 
     @Override

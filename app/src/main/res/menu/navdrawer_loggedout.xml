@@ -4,7 +4,6 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/NavItem_Home"
-            android:checked="true"
             android:icon="@drawable/home_black"
             android:title="Home" />
         <item
@@ -13,7 +12,6 @@
             android:title="Kalender" />
         <item
             android:id="@+id/NavItem_Post"
-            android:checked="true"
             android:icon="@drawable/mail_black"
             android:title="Postfach" />
         <item
