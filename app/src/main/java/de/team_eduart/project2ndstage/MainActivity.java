@@ -1,38 +1,32 @@
 package de.team_eduart.project2ndstage;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private CharSequence mTitle;
     private NavigationView mNavigationView;
 
     Button HomeButton;
-    Button KalButton;
-    Button PostButton;
-    Button NewsButton;
+    Button CalButton;
+    Button MailButton;
+    Button NotificationsButton;
 
     String CurrentlySelectedFragment;
 
@@ -67,17 +61,17 @@ public class MainActivity extends ActionBarActivity {
                         mDrawerLayout.closeDrawers();
                         SwitchToHome();
                         return true;
-                    case R.id.NavItem_Kal:
+                    case R.id.NavItem_Cal:
                         mDrawerLayout.closeDrawers();
-                        SwitchToKal();
+                        SwitchToCal();
                         return true;
-                    case R.id.NavItem_Post:
+                    case R.id.NavItem_Mail:
                         mDrawerLayout.closeDrawers();
-                        SwitchToPost();
+                        SwitchToMail();
                         return true;
-                    case R.id.NavItem_News:
+                    case R.id.NavItem_Notifications:
                         mDrawerLayout.closeDrawers();
-                        SwitchToNews();
+                        SwitchToNotifications();
                         return true;
                     case R.id.NavItem_Settings:
                         mDrawerLayout.closeDrawers();
@@ -105,9 +99,9 @@ public class MainActivity extends ActionBarActivity {
         refreshNavDrawerMenu();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
-        KalButton = (Button) findViewById(R.id.BtnKal);
-        PostButton = (Button) findViewById(R.id.BtnPost);
-        NewsButton = (Button) findViewById(R.id.BtnNews);
+        CalButton = (Button) findViewById(R.id.BtnCal);
+        MailButton = (Button) findViewById(R.id.BtnMail);
+        NotificationsButton = (Button) findViewById(R.id.BtnNotifications);
 
         HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,24 +110,24 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        KalButton.setOnClickListener(new View.OnClickListener() {
+        CalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwitchToKal();
+                SwitchToCal();
             }
         });
 
-        PostButton.setOnClickListener(new View.OnClickListener() {
+        MailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwitchToPost();
+                SwitchToMail();
             }
         });
 
-        NewsButton.setOnClickListener(new View.OnClickListener() {
+        NotificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwitchToNews();
+                SwitchToNotifications();
             }
         });
     }
@@ -153,25 +147,25 @@ public class MainActivity extends ActionBarActivity {
         HomeButton = (Button) findViewById(R.id.BtnHome);
         HomeButton.setBackgroundResource(R.drawable.home_white);
 
-        KalButton = (Button) findViewById(R.id.BtnKal);
-        KalButton.setBackgroundResource(R.drawable.calendar_black);
+        CalButton = (Button) findViewById(R.id.BtnCal);
+        CalButton.setBackgroundResource(R.drawable.calendar_black);
 
-        PostButton = (Button) findViewById(R.id.BtnPost);
-        PostButton.setBackgroundResource(R.drawable.mail_black);
+        MailButton = (Button) findViewById(R.id.BtnMail);
+        MailButton.setBackgroundResource(R.drawable.mail_black);
 
-        NewsButton = (Button) findViewById(R.id.BtnNews);
-        NewsButton.setBackgroundResource(R.drawable.news_black);
+        NotificationsButton = (Button) findViewById(R.id.BtnNotifications);
+        NotificationsButton.setBackgroundResource(R.drawable.news_black);
 
         CurrentlySelectedFragment = "Home";
     }
 
-    private void SwitchToKal() {
+    private void SwitchToCal() {
         //Toast.makeText(getApplicationContext(), "Kalender", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(1).setChecked(true);
 
-        KalenderFragment kalFragment = new KalenderFragment();
+        CalendarFragment kalFragment = new CalendarFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, kalFragment)
@@ -180,25 +174,25 @@ public class MainActivity extends ActionBarActivity {
         HomeButton = (Button) findViewById(R.id.BtnHome);
         HomeButton.setBackgroundResource(R.drawable.home_black);
 
-        KalButton = (Button) findViewById(R.id.BtnKal);
-        KalButton.setBackgroundResource(R.drawable.calendar_white);
+        CalButton = (Button) findViewById(R.id.BtnCal);
+        CalButton.setBackgroundResource(R.drawable.calendar_white);
 
-        PostButton = (Button) findViewById(R.id.BtnPost);
-        PostButton.setBackgroundResource(R.drawable.mail_black);
+        MailButton = (Button) findViewById(R.id.BtnMail);
+        MailButton.setBackgroundResource(R.drawable.mail_black);
 
-        NewsButton = (Button) findViewById(R.id.BtnNews);
-        NewsButton.setBackgroundResource(R.drawable.news_black);
+        NotificationsButton = (Button) findViewById(R.id.BtnNotifications);
+        NotificationsButton.setBackgroundResource(R.drawable.news_black);
 
         CurrentlySelectedFragment = "Calendar";
     }
 
-    private void SwitchToPost() {
+    private void SwitchToMail() {
         //Toast.makeText(getApplicationContext(), "Postfach", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(2).setChecked(true);
 
-        PostFragment postFragment = new PostFragment();
+        MailFragment postFragment = new MailFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, postFragment)
@@ -207,25 +201,25 @@ public class MainActivity extends ActionBarActivity {
         HomeButton = (Button) findViewById(R.id.BtnHome);
         HomeButton.setBackgroundResource(R.drawable.home_black);
 
-        KalButton = (Button) findViewById(R.id.BtnKal);
-        KalButton.setBackgroundResource(R.drawable.calendar_black);
+        CalButton = (Button) findViewById(R.id.BtnCal);
+        CalButton.setBackgroundResource(R.drawable.calendar_black);
 
-        PostButton = (Button) findViewById(R.id.BtnPost);
-        PostButton.setBackgroundResource(R.drawable.mail_white);
+        MailButton = (Button) findViewById(R.id.BtnMail);
+        MailButton.setBackgroundResource(R.drawable.mail_white);
 
-        NewsButton = (Button) findViewById(R.id.BtnNews);
-        NewsButton.setBackgroundResource(R.drawable.news_black);
+        NotificationsButton = (Button) findViewById(R.id.BtnNotifications);
+        NotificationsButton.setBackgroundResource(R.drawable.news_black);
 
-        CurrentlySelectedFragment = "Post";
+        CurrentlySelectedFragment = "Mail";
     }
 
-    private void SwitchToNews() {
+    private void SwitchToNotifications() {
         //Toast.makeText(getApplicationContext(), "Benachrichtigungen", Toast.LENGTH_SHORT).show();
 
         Menu menu = mNavigationView.getMenu();
         menu.getItem(3).setChecked(true);
 
-        NewsFragment newsFragment = new NewsFragment();
+        NotificationsFragment newsFragment = new NotificationsFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, newsFragment)
@@ -234,16 +228,16 @@ public class MainActivity extends ActionBarActivity {
         HomeButton = (Button) findViewById(R.id.BtnHome);
         HomeButton.setBackgroundResource(R.drawable.home_black);
 
-        KalButton = (Button) findViewById(R.id.BtnKal);
-        KalButton.setBackgroundResource(R.drawable.calendar_black);
+        CalButton = (Button) findViewById(R.id.BtnCal);
+        CalButton.setBackgroundResource(R.drawable.calendar_black);
 
-        PostButton = (Button) findViewById(R.id.BtnPost);
-        PostButton.setBackgroundResource(R.drawable.mail_black);
+        MailButton = (Button) findViewById(R.id.BtnMail);
+        MailButton.setBackgroundResource(R.drawable.mail_black);
 
-        NewsButton = (Button) findViewById(R.id.BtnNews);
-        NewsButton.setBackgroundResource(R.drawable.news_white);
+        NotificationsButton = (Button) findViewById(R.id.BtnNotifications);
+        NotificationsButton.setBackgroundResource(R.drawable.news_white);
 
-        CurrentlySelectedFragment = "News";
+        CurrentlySelectedFragment = "Notifications";
     }
 
     private void Logout() {
@@ -254,7 +248,7 @@ public class MainActivity extends ActionBarActivity {
         final SharedPreferences.Editor editor = NetworkState.edit();
 
         editor.putBoolean("LoggedIn", false);
-        editor.commit();
+        editor.apply();
 
         refreshNavDrawerMenu();
     }
@@ -269,7 +263,7 @@ public class MainActivity extends ActionBarActivity {
 
         Boolean LoggedIn = NetworkState.getBoolean("LoggedIn", false);
 
-        if (LoggedIn == true) {
+        if (LoggedIn) {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
             mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
@@ -287,10 +281,10 @@ public class MainActivity extends ActionBarActivity {
 
         //Toast.makeText(getApplicationContext(), CurrentlySelectedFragment, Toast.LENGTH_SHORT).show();
 
-        if (CurrentlySelectedFragment == "Home") {menu.getItem(0).setChecked(true);}
-        else if (CurrentlySelectedFragment == "Calendar") {menu.getItem(1).setChecked(true);}
-        else if (CurrentlySelectedFragment == "Post") {menu.getItem(2).setChecked(true);}
-        else if (CurrentlySelectedFragment == "News") {menu.getItem(3).setChecked(true);}
+        if (CurrentlySelectedFragment.equals("Home")) {menu.getItem(0).setChecked(true);}
+        else if (CurrentlySelectedFragment.equals("Calendar")) {menu.getItem(1).setChecked(true);}
+        else if (CurrentlySelectedFragment.equals("Mail")) {menu.getItem(2).setChecked(true);}
+        else if (CurrentlySelectedFragment.equals("Notifications")) {menu.getItem(3).setChecked(true);}
 
     }
 

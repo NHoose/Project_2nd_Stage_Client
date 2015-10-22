@@ -5,19 +5,19 @@
         <item
             android:id="@+id/NavItem_Home"
             android:icon="@drawable/home_black"
-            android:title="Home" />
+            android:title="@string/NavDrawer_Home" />
         <item
-            android:id="@+id/NavItem_Kal"
+            android:id="@+id/NavItem_Cal"
             android:icon="@drawable/calendar_black"
-            android:title="Kalender" />
+            android:title="@string/NavDrawer_Calendar" />
         <item
-            android:id="@+id/NavItem_Post"
+            android:id="@+id/NavItem_Mail"
             android:icon="@drawable/mail_black"
-            android:title="Postfach" />
+            android:title="@string/NavDrawer_Mail" />
         <item
-            android:id="@+id/NavItem_News"
+            android:id="@+id/NavItem_Notifications"
             android:icon="@drawable/news_black"
-            android:title="Benachrichtigungen" />
+            android:title="@string/NavDrawer_Notifications" />
     </group>
 
     <group android:id="@+id/more"

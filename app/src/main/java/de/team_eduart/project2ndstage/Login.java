@@ -32,7 +32,7 @@ public class Login extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 editor.putBoolean("LoggedIn", true);
-                editor.commit();
+                editor.apply();
 
                 Toast.makeText(getApplicationContext(), "Eingeloggt", Toast.LENGTH_SHORT).show();
             }

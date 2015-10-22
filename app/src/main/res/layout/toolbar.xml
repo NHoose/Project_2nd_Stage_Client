@@ -24,7 +24,7 @@
         <Button
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:id="@+id/BtnKal"
+            android:id="@+id/BtnCal"
             android:layout_alignLeft="@+id/BtnHome"
             android:layout_alignStart="@+id/BtnHome"
             android:layout_marginLeft="15dp"
@@ -33,7 +33,7 @@
         <Button
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:id="@+id/BtnPost"
+            android:id="@+id/BtnMail"
             android:layout_alignLeft="@+id/BtnKal"
             android:layout_alignStart="@+id/BtnKal"
             android:layout_marginLeft="15dp"
@@ -42,7 +42,7 @@
         <Button
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:id="@+id/BtnNews"
+            android:id="@+id/BtnNotifications"
             android:layout_alignLeft="@+id/BtnPost"
             android:layout_alignStart="@+id/BtnPost"
             android:layout_marginLeft="15dp"

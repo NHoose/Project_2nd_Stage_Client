@@ -12,5 +12,9 @@
     <string name="NavDrawer_Settings">Einstellungen</string>
     <string name="NavDrawer_Login">Anmelden</string>
     <string name="NavDrawer_Logout">Abmelden</string>
+    <string name="NavDrawer_Home">Home</string>
+    <string name="NavDrawer_Calendar">Kalender</string>
+    <string name="NavDrawer_Mail">Postfach</string>
+    <string name="NavDrawer_Notifications">Benachrichtigungen</string>
 
 </resources>
