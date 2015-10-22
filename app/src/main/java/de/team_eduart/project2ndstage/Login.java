@@ -6,11 +6,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class Login extends ActionBarActivity {
 
     Button BtnLogin;
+    EditText editTextUsername;
+    EditText editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +30,31 @@ public class Login extends ActionBarActivity {
         final SharedPreferences.Editor editor = NetworkState.edit();
 
         BtnLogin = (Button) findViewById(R.id.BtnLogin);
+        editTextUsername = (EditText) findViewById(R.id.editTextUsername);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putBoolean("LoggedIn", true);
-                editor.apply();
 
-                Toast.makeText(getApplicationContext(), "Eingeloggt", Toast.LENGTH_SHORT).show();
+                String Username = editTextUsername.getText().toString();
+                String Password = editTextPassword.getText().toString();
+
+                //Hardcoded als Test
+                if (Username.equals("Admin")) {
+                    if (Password.equals("1234")) {
+                        editor.putBoolean("LoggedIn", true);
+                        editor.putString("Username", Username);
+                        editor.apply();
+
+                        Toast.makeText(getApplicationContext(), "Eingeloggt als " + Username, Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "falsches Passwort", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "unbekannter Benutzername", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

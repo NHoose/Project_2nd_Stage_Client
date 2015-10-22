@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         SwitchToHome();
 
         //check current LoginState and change NavDrawer
-        refreshNavDrawerMenu();
+        refreshNetworkState();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
         CalButton = (Button) findViewById(R.id.BtnCal);
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Logout() {
-        // wenn erfolgreich ausgeloggt
+        // eigentlich erst wenn erfolgreich ausgeloggt
         Toast.makeText(getApplicationContext(), "Ausgeloggt", Toast.LENGTH_SHORT).show();
 
         SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("LoggedIn", false);
         editor.apply();
 
-        refreshNavDrawerMenu();
+        refreshNetworkState();
     }
 
     private void Login() {
@@ -258,25 +259,30 @@ public class MainActivity extends AppCompatActivity {
         startActivity(openLogin);
     }
 
-    private void refreshNavDrawerMenu() {
+    private void refreshNetworkState() {
         SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
 
         Boolean LoggedIn = NetworkState.getBoolean("LoggedIn", false);
+        String Username = NetworkState.getString("Username", "Max Musterschüler");
+
+        TextView NavDrawerUsername = (TextView)findViewById(R.id.NavDrawerUsername);
 
         if (LoggedIn) {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
             mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
-            reselectlastfragment();
+            NavDrawerUsername.setText(Username);
+            reselectLastFragment();
         } else {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
             mNavigationView.inflateMenu(R.menu.navdrawer_loggedout);
-            reselectlastfragment();
+            NavDrawerUsername.setText("Max Musterschüler");
+            reselectLastFragment();
         }
     }
 
-    private void reselectlastfragment() {
+    private void reselectLastFragment() {
         Menu menu = mNavigationView.getMenu();
 
         //Toast.makeText(getApplicationContext(), CurrentlySelectedFragment, Toast.LENGTH_SHORT).show();
@@ -292,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        refreshNavDrawerMenu();
+        refreshNetworkState();
         SwitchToHome();
     }
 
