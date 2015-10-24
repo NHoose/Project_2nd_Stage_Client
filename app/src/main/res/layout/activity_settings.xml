@@ -7,11 +7,25 @@
 
     <include layout="@layout/toolbar_blank" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Einstellungen"
-        android:id="@+id/textView"
+        android:ems="10"
+        android:id="@+id/editTextServerIP"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="363dp"
+        android:layout_marginStart="363dp"
+        android:hint="Server IP" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:id="@+id/BtnSetServerIP"
+        android:layout_alignTop="@+id/editTextServerIP"
+        android:layout_toRightOf="@+id/editTextServerIP"
+        android:layout_toEndOf="@+id/editTextServerIP" />
+
 </RelativeLayout>
