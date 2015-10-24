@@ -30,6 +30,11 @@ public class Settings extends ActionBarActivity {
         SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
         final SharedPreferences.Editor editor = NetworkState.edit();
 
+        String currentServerIP = NetworkState.getString("ServerIP", null);
+        if (currentServerIP != null){
+            editTextServerIP.setText(currentServerIP);
+        }
+
         BtnSetServerIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,6 @@
 package de.team_eduart.project2ndstage;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,11 +10,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login extends ActionBarActivity {
 
     Button BtnLogin;
     EditText editTextUsername;
     EditText editTextPassword;
+    List<NameValuePair> params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +36,7 @@ public class Login extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
+        final SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
         final SharedPreferences.Editor editor = NetworkState.edit();
 
         BtnLogin = (Button) findViewById(R.id.BtnLogin);
@@ -40,7 +50,9 @@ public class Login extends ActionBarActivity {
                 String Username = editTextUsername.getText().toString();
                 String Password = editTextPassword.getText().toString();
 
-                //Hardcoded als Test
+                String ServerIP = NetworkState.getString("ServerIP", null);
+
+                /*Hardcoded als Test
                 if (Username.equals("Admin")) {
                     if (Password.equals("1234")) {
                         editor.putBoolean("LoggedIn", true);
@@ -54,6 +66,31 @@ public class Login extends ActionBarActivity {
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "unbekannter Benutzername", Toast.LENGTH_SHORT).show();
+                }
+                */
+
+                params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("userid", Username));
+                params.add(new BasicNameValuePair("password", Password));
+                ServerRequest sr = new ServerRequest();
+                JSONObject json = sr.getJSON("http://"+ ServerIP +":8080/testlogin",params);
+                if(json != null){
+                    try{
+                        String jsonstr = json.getString("response");
+                        if(json.getBoolean("res")){
+                            editor.putBoolean("LoggedIn", true);
+                            editor.putString("Username", Username);
+                            editor.apply();
+                            finish();
+                        }
+
+                        Toast.makeText(getApplication(),jsonstr,Toast.LENGTH_LONG).show();
+
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "keine Serververbindung", Toast.LENGTH_LONG).show();
                 }
             }
         });
