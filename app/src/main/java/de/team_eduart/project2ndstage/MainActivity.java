@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = mNavigationView.getMenu();
         menu.getItem(0).setChecked(true);
 
+
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -166,10 +167,10 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = mNavigationView.getMenu();
         menu.getItem(1).setChecked(true);
 
-        CalendarFragment kalFragment = new CalendarFragment();
+        CalendarFragment calFragment = new CalendarFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, kalFragment)
+                .replace(R.id.fragment_container, calFragment)
                 .commit();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
@@ -193,10 +194,10 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = mNavigationView.getMenu();
         menu.getItem(2).setChecked(true);
 
-        MailFragment postFragment = new MailFragment();
+        MailFragment mailFragment = new MailFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, postFragment)
+                .replace(R.id.fragment_container, mailFragment)
                 .commit();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
@@ -220,10 +221,10 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = mNavigationView.getMenu();
         menu.getItem(3).setChecked(true);
 
-        NotificationsFragment newsFragment = new NotificationsFragment();
+        NotificationsFragment notificationsFragment = new NotificationsFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, newsFragment)
+                .replace(R.id.fragment_container, notificationsFragment)
                 .commit();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
@@ -332,4 +333,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

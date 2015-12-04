@@ -7,11 +7,25 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     <!-- TODO: Update blank fragment layout -->
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Du bist zuhause!"
-            android:layout_gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+
+        <FrameLayout
+            android:layout_width="450dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentLeft="true"
+            android:elevation="4dp"
+            android:id="@+id/AppGridContainer">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="App Liste"
+                android:id="@+id/BtnAppList"
+                android:layout_gravity="right|top" />
+        </FrameLayout>
     </RelativeLayout>
 
 </FrameLayout>
