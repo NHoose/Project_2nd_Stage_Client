@@ -1,10 +1,16 @@
 package de.team_eduart.project2ndstage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,9 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class InstalledAppsList extends ActionBarActivity {
 
@@ -22,6 +34,12 @@ public class InstalledAppsList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_installed_apps_list);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarBlank);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         loadApps();
         loadListView();
@@ -51,7 +69,7 @@ public class InstalledAppsList extends ActionBarActivity {
 
     private ListView list;
     private void loadListView(){
-        list = (ListView)findViewById(R.id.apps_list);
+        list = (ListView)findViewById(R.id.installed_apps_list);
 
         ArrayAdapter<AppDetail> adapter = new ArrayAdapter<AppDetail>(this,
                 R.layout.list_item,
@@ -76,6 +94,7 @@ public class InstalledAppsList extends ActionBarActivity {
         };
 
         list.setAdapter(adapter);
+        registerForContextMenu(list);
     }
 
 
@@ -88,5 +107,44 @@ public class InstalledAppsList extends ActionBarActivity {
                 InstalledAppsList.this.startActivity(i);
             }
         });
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.applist_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
+
+        SharedPreferences SelectedHomeAppsPrefs = this.getSharedPreferences("SelectedHomeApps", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = SelectedHomeAppsPrefs.edit();
+
+        //Apps gehen verloren ....
+
+        switch (item.getItemId()) {
+            case R.id.AddToHome:
+                String selectedAppName =  apps.get(index).name.toString();
+                if (SelectedHomeAppsPrefs.contains("SelectedMainApps")) {
+                    Set<String> SelectedMainApps = new HashSet<String>(SelectedHomeAppsPrefs.getStringSet("SelectedMainApps", new HashSet<String>()));
+                    SelectedMainApps.add(selectedAppName);
+                    editor.putStringSet("SelectedMainApps", SelectedMainApps);
+                    editor.apply();
+                    Toast.makeText(getApplicationContext(), selectedAppName + " hinzugefügt", Toast.LENGTH_SHORT).show();
+                } else {
+                    Set<String> SelectedMainApps = new HashSet<String>();
+                    SelectedMainApps.add(selectedAppName);
+                    editor.putStringSet("SelectedMainApps", SelectedMainApps);
+                    editor.apply();
+                    Toast.makeText(getApplicationContext(), "Prefs erstellt und " + selectedAppName + " hinzugefügt", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }

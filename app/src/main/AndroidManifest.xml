@@ -39,7 +39,14 @@
         </activity>
         <activity
             android:name=".InstalledAppsList"
-            android:label="@string/title_activity_installed_apps_list"></activity>
+            android:label="@string/title_activity_installed_apps_list"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.team_eduart.project2ndstage.MainActivity" />
+
+        </activity>
     </application>
 
 </manifest>
