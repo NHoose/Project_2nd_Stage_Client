@@ -81,6 +81,7 @@ public class Login extends ActionBarActivity {
                             editor.putBoolean("LoggedIn", true);
                             editor.putString("Username", Username);
                             editor.apply();
+                            startService(new Intent(Login.this, AppLockService.class));
                             finish();
                         }
 

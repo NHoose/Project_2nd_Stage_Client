@@ -243,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Logout() {
+        stopService(new Intent(MainActivity.this, AppLockService.class));
+
         // eigentlich erst wenn erfolgreich ausgeloggt
         Toast.makeText(getApplicationContext(), "Ausgeloggt", Toast.LENGTH_SHORT).show();
 
