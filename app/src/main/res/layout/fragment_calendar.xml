@@ -3,16 +3,69 @@
     android:layout_height="match_parent"
     tools:context="de.team_eduart.project2ndstage.KalenderFragment">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/buttonlayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="60sp"
+        android:gravity="left|top"
+        android:height="60sp"
+        android:orientation="horizontal" >
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Du bist im Kalender!"
+        <ImageView
+            android:id="@+id/prevMonth"
+            android:layout_width="20sp"
+            android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginLeft="10sp" >
+        </ImageView>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/currentMonth"
+            android:layout_width="fill_parent"
+            android:layout_height="60sp"
+            android:layout_weight="0.6"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" >
+        </TextView>
+
+        <ImageView
+            android:id="@+id/nextMonth"
+            android:layout_width="20sp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="10sp" >
+        </ImageView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/selectedDayMonthYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF" >
+    </Button>
+
+    <Button
+        android:id="@+id/addEvent"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top" />
+
+    <ImageView
+        android:id="@+id/calendarheader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top" >
+    </ImageView>
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridCalendar"
+        android:layout_gravity="center_horizontal|bottom"
+        android:numColumns="7"/>
 
 </FrameLayout>
