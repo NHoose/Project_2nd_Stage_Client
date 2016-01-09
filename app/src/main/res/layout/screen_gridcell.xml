@@ -10,11 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF" >
+        android:textColor="#000000" >
     </Button>
 
     <TextView
         android:id="@+id/num_events_per_day"
+
         android:layout_width="10dip"
         android:layout_height="10dip"
         android:layout_gravity="right" >
