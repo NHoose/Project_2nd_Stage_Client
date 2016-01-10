@@ -27,7 +27,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     View change;
     String activeWeek, activeWeekDate;
     Calendar _Calendar;
-    int week, monday, thuesday, wensday, thurseday, friday, year, day, month, weekCount;
+    int tweek, week, monday, thuesday, wensday, thurseday, friday, year, day, month, weekCount;
 
     /** Called when the activity is first created. */
     @Override
@@ -40,25 +40,47 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         month     = _Calendar.get(Calendar.MONTH);
         year      = _Calendar.get(Calendar.YEAR);
 
-        //AddEvent  = (Button) getView().findViewById(R.id.addEventFrag);
-        //SaveEvent = (Button) getView().findViewById(R.id.saveEventFrag);
+        tweek = week;
+
+        nextWeek = (Button) currentView.findViewById(R.id.nextWeekFrag);
+
+        nextWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                week++;
+                if (week > 52){week = 1;}
+                activeWeek     = Integer.toString(week);
+
+                if (tweek == week){
+                calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
+                }
+                else {calendarWeek.setText(activeWeek + ".Kalenderwoche");}
+            }
+        });
+
+        prevWeek = (Button) currentView.findViewById(R.id.prevWeekFrag);
+
+        prevWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                week--;
+                if (week < 1) {
+                    week = 52;
+                }
+                activeWeek = Integer.toString(week);
+                if (tweek == week) {
+                    calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
+                }
+                else {calendarWeek.setText(activeWeek + ".Kalenderwoche");}
+            }
+        });
 
 
-           /** AddEvent.setOnClickListener(new View.OnClickListener() {
-             *   @Override
-             *   public void onClick(View v) {
-             *
-             *       View change = getView().findViewById(R.id.saveEventFrag);
-             *       change.setVisibility(View.VISIBLE);
-             *
-             *    }
-             *});
-             */
-
-           activeWeek     = Integer.toString(week);
-
-           calendarWeek   = (TextView) currentView.findViewById(R.id.calendarWeekFrag);
-           calendarWeek.setText(activeWeek + ". Kalernderwoche \n (aktuell)");
+        if (tweek == week) {
+            activeWeek     = Integer.toString(week);
+            calendarWeek = (TextView) currentView.findViewById(R.id.calendarWeekFrag);
+            calendarWeek.setText(activeWeek + ". Kalernderwoche \n (aktuell)");
+        }
 
         return currentView;
     }
