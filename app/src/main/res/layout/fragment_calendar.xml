@@ -245,40 +245,36 @@
 
     <TextView
         android:id="@+id/dateMoFrag"
-        android:text="New Text"
         android:textSize="12dp"
         android:layout_width="70dp"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:layout_gravity="left|top"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="58dp"/>
 
     <TextView
         android:id="@+id/dateThueFrag"
-        android:text="New Text"
         android:textSize="12dp"
         android:layout_width="70dp"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:layout_gravity="left|top"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="166dp"/>
 
     <TextView
         android:id="@+id/dateWeFrag"
-        android:text="New Text"
         android:textSize="12dp"
         android:layout_width="70dp"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:layout_gravity="left|top"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="272dp"/>
 
     <TextView
         android:id="@+id/dateThFrag"
-        android:text="New Text"
         android:textSize="12dp"
         android:layout_width="70dp"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:layout_gravity="top|right"
         android:layout_marginRight="220dp"
         android:layout_marginTop="57dp"/>
@@ -286,10 +282,9 @@
 
     <TextView
         android:id="@+id/dateFrFrag"
-        android:text="New Text"
         android:textSize="12dp"
         android:layout_width="70dp"
-        android:layout_height="14dp"
+        android:layout_height="16dp"
         android:layout_gravity="top|right"
         android:layout_marginRight="220dp"
         android:layout_marginTop="166dp"/>
