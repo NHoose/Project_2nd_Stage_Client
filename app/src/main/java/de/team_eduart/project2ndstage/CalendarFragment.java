@@ -27,7 +27,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     String activeWeek, activeWeekDay;
     Calendar _Calendar;
     int tweek, week, year, day, month, monday, thuesday, wensday, thursday, friday, monthThuesday, monthWensday, monthThursday, monthFriday;
-    int yearThuesday, yearWensday, yearThursday, yearFriday,yearAct;
+    int yearThuesday, yearWensday, yearThursday, yearFriday,yearAct, minMonth, x;
 
     /** Called when the activity is first created. */
     @Override
@@ -54,6 +54,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         yearAct = year;
 
 
+
         nextWeek     = (Button) currentView.findViewById(R.id.nextWeekFrag);
         prevWeek     = (Button) currentView.findViewById(R.id.prevWeekFrag);
         calendarWeek = (TextView) currentView.findViewById(R.id.calendarWeekFrag);
@@ -72,14 +73,19 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         }else if(activeWeekDay.equals("Samstag")){monday = day - 5;
         }else if(activeWeekDay.equals("Sonntag")){monday = day - 6;}
 
+        thuesday = monday + 1;
+        wensday  = monday + 2;
+        thursday = monday + 3;
+        friday = monday + 4;
+
         if (tweek == week) {
             activeWeek     = Integer.toString(week);
             calendarWeek.setText(activeWeek + ". Kalernderwoche \n (aktuell)");
             calenderMo.setText(Integer.toString(monday) + "." + Integer.toString(month) + "." + Integer.toString(year));
-            calenderThue.setText(Integer.toString(monday + 1) + "." + Integer.toString(month) + "." + Integer.toString(year));
-            calenderWe.setText(Integer.toString(monday + 2) + "." + Integer.toString(month) + "." + Integer.toString(year));
-            calenderTh.setText(Integer.toString(monday + 3) + "." + Integer.toString(month) + "." + Integer.toString(year));
-            calenderFr.setText(Integer.toString(monday + 4) + "." + Integer.toString(month) + "." + Integer.toString(year));
+            calenderThue.setText(Integer.toString(thuesday) + "." + Integer.toString(month) + "." + Integer.toString(year));
+            calenderWe.setText(Integer.toString(wensday) + "." + Integer.toString(month) + "." + Integer.toString(year));
+            calenderTh.setText(Integer.toString(thursday) + "." + Integer.toString(month) + "." + Integer.toString(year));
+            calenderFr.setText(Integer.toString(friday) + "." + Integer.toString(month) + "." + Integer.toString(year));
         }
 
 
@@ -91,19 +97,336 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                     if (week > 52){week = 1;}
                     activeWeek     = Integer.toString(week);
 
-                    if (tweek == week){
-                    calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
-                    }
-                    else {calendarWeek.setText(activeWeek + ".Kalenderwoche");}
+                     if (tweek == week) {
+                        if (year == yearAct) {
+                            calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
+                        }else{calendarWeek.setText(activeWeek + ".Kalenderwoche");}
+                     } else {
+                        calendarWeek.setText(activeWeek + ".Kalenderwoche");
+                       }
 
-                    monday = monday + 7;
-                    if(month > 12){month = 1; year++;}
+                    monday      = monday   + 7;
+                    thuesday    = thuesday + 7;
+                    wensday     = wensday  + 7;
+                    thursday    = thursday + 7;
+                    friday      = friday   + 7;
+
+                    if (monthThursday < monthFriday){
+                        x = monthThuesday;
+                        if(monthWensday < monthThursday){
+                            x = monthWensday;
+                            if(monthThuesday < monthWensday){
+                                x = monthThuesday;
+                                if(month < monthThuesday){
+                                    x = month;
+                                }
+                            }
+                        }
+                    }else {x = monthFriday;}
+
+
+                    if (x == 1){
+                        if (monthThursday == 12){x = 12;}
+                        if (monthWensday == 12){x = 12;}
+                        if (monthThuesday == 12){x = 12;}
+                        if (month == 12){x = 12;}
+                    }
+
+                    minMonth = x;
+
+                    if (minMonth == 1) {
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+
+                    }else if (minMonth == 2){
+                        if (year == 2012 || year == 2016 || year == 2020 || year == 2024 || year == 2028 || year == 2032 || year == 2036 || year == 2040){
+                            if (friday > 29){
+                                monthFriday = month + 1;
+                                friday = friday - 29;
+                            }
+                            if (thursday > 29){
+                                monthThursday = month + 1;
+                                thursday = thursday - 29;
+                            }
+                            if (wensday > 29){
+                                monthWensday = month + 1;
+                                wensday = wensday - 29;
+                            }
+                            if(thuesday > 29){
+                                monthThuesday = month + 1;
+                                thuesday = thuesday - 29;
+                            }
+                            if(monday > 29){
+                                month++;
+                                monday = monday - 29;
+                            }
+
+                        }else{
+                            if (friday > 28){
+                                monthFriday = month + 1;
+                                friday = friday - 28;
+                            }
+                            if (thursday > 28){
+                                monthThursday = month + 1;
+                                thursday = thursday - 28;
+                            }
+                            if (wensday > 28){
+                                monthWensday = month + 1;
+                                wensday = wensday - 28;
+                            }
+                            if(thuesday > 28){
+                                monthThuesday = month + 1;
+                                thuesday = thuesday - 28;
+                            }
+                            if(monday > 28){
+                                month++;
+                                monday = monday - 28;
+                            }
+
+                        }
+                    }else if (minMonth == 3){
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+                    }else if (minMonth == 4){
+                        if (friday > 30){
+                            monthFriday = month + 1;
+                            friday = friday - 30;
+                        }
+                        if (thursday > 30){
+                            monthThursday = month + 1;
+                            thursday = thursday - 30;
+                        }
+                        if (wensday > 30){
+                            monthWensday = month + 1;
+                            wensday = wensday - 30;
+                        }
+                        if(thuesday > 30){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 30;
+                        }
+                        if(monday > 30){
+                            month++;
+                            monday = monday - 30;
+                        }
+                    }else if (minMonth == 5){
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+                    }else if (minMonth == 6){
+                        if (friday > 30){
+                            monthFriday = month + 1;
+                            friday = friday - 30;
+                        }
+                        if (thursday > 30){
+                            monthThursday = month + 1;
+                            thursday = thursday - 30;
+                        }
+                        if (wensday > 30){
+                            monthWensday = month + 1;
+                            wensday = wensday - 30;
+                        }
+                        if(thuesday > 30){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 30;
+                        }
+                        if(monday > 30){
+                            month++;
+                            monday = monday - 30;
+                        }
+                    }else if (minMonth == 7){
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+                    }else if (minMonth == 8){
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+                    }else if (minMonth == 9){
+                        if (friday > 30){
+                            monthFriday = month + 1;
+                            friday = friday - 30;
+                        }
+                        if (thursday > 30){
+                            monthThursday = month + 1;
+                            thursday = thursday - 30;
+                        }
+                        if (wensday > 30){
+                            monthWensday = month + 1;
+                            wensday = wensday - 30;
+                        }
+                        if(thuesday > 30){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 30;
+                        }
+                        if(monday > 30){
+                            month++;
+                            monday = monday - 30;
+                        }
+                    }else if (minMonth == 10){
+                        if (friday > 31){
+                            monthFriday = month + 1;
+                            friday = friday - 31;
+                        }
+                        if (thursday > 31){
+                            monthThursday = month + 1;
+                            thursday = thursday - 31;
+                        }
+                        if (wensday > 31){
+                            monthWensday = month + 1;
+                            wensday = wensday - 31;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 31;
+                        }
+                        if(monday > 31){
+                            month++;
+                            monday = monday - 31;
+                        }
+                    }else if (minMonth == 11){
+                        if (friday > 30){
+                            monthFriday = month + 1;
+                            friday = friday - 30;
+                        }
+                        if (thursday > 30){
+                            monthThursday = month + 1;
+                            thursday = thursday - 30;
+                        }
+                        if (wensday > 30){
+                            monthWensday = month + 1;
+                            wensday = wensday - 30;
+                        }
+                        if(thuesday > 30){
+                            monthThuesday = month + 1;
+                            thuesday = thuesday - 30;
+                        }
+                        if(monday > 30){
+                            month++;
+                            monday = monday - 30;
+                        }
+                    }else if (minMonth == 12){
+                        if (friday > 31){
+                            monthFriday = 1;
+                            friday = friday - 31;
+                            yearFriday++;
+                        }
+                        if (thursday > 31){
+                            monthThursday = 1;
+                            thursday = thursday - 31;
+                            yearThursday++;
+                        }
+                        if (wensday > 31){
+                            monthWensday = 1;
+                            wensday = wensday - 31;
+                            yearWensday++;
+                        }
+                        if(thuesday > 31){
+                            monthThuesday = 1;
+                            thuesday = thuesday - 31;
+                            yearThuesday++;
+                        }
+                        if(monday > 31){
+                            month = 1;
+                            monday = monday - 31;
+                            year++;
+                        }
+                    }
+
 
                     calenderMo.setText(Integer.toString(monday) + "." + Integer.toString(month) + "." + Integer.toString(year));
-                    calenderThue.setText(Integer.toString(monday + 1) + "." + Integer.toString(month) + "." + Integer.toString(year));
-                    calenderWe.setText(Integer.toString(monday + 2) + "." + Integer.toString(month) + "." + Integer.toString(year));
-                    calenderTh.setText(Integer.toString(monday + 3) + "." + Integer.toString(month) + "." + Integer.toString(year));
-                    calenderFr.setText(Integer.toString(monday + 4) + "." + Integer.toString(month) + "." + Integer.toString(year));
+                    calenderThue.setText(Integer.toString(thuesday) + "." + Integer.toString(monthThuesday) + "." + Integer.toString(yearThuesday));
+                    calenderWe.setText(Integer.toString(wensday) + "." + Integer.toString(monthWensday) + "." + Integer.toString(yearWensday));
+                    calenderTh.setText(Integer.toString(thursday) + "." + Integer.toString(monthThursday) + "." + Integer.toString(yearThursday));
+                    calenderFr.setText(Integer.toString(friday) + "." + Integer.toString(monthFriday) + "." + Integer.toString(yearFriday));
+
+
                 }
             });
 
@@ -115,17 +438,19 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                         week = 52;
                     }
                     activeWeek = Integer.toString(week);
-                    if (tweek == week  || year == yearAct) {
-                        calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
+                    if (tweek == week) {
+                        if (year == yearAct) {
+                            calendarWeek.setText(activeWeek + ".Kalenderwoche \n (aktuell)");
+                        }else{calendarWeek.setText(activeWeek + ".Kalenderwoche");}
                     } else {
                         calendarWeek.setText(activeWeek + ".Kalenderwoche");
                     }
 
-                    monday      = monday - 7;
-                    thuesday    = monday + 1;
-                    wensday     = monday + 2;
-                    thursday    = monday + 3;
-                    friday      = monday + 4;
+                    monday      = monday   - 7;
+                    thuesday    = thuesday - 7;
+                    wensday     = wensday  - 7;
+                    thursday    = thursday - 7;
+                    friday      = friday   - 7;
 
                     if (monday < 1) {
                         if (month == 1) {
@@ -185,7 +510,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 yearFriday = year;
                                 }
                         } else if (month == 3) {
-                            if (year == 2012 || year == 2016 || year == 2020 || year == 2024 || year == 2028 || year == 2032 || year == 2036) {
+                            if (year == 2012 || year == 2016 || year == 2020 || year == 2024 || year == 2028 || year == 2032 || year == 2036 || year == 2040) {
                                 monday = 29 + monday;
                                 month = 2;
                                 monthThuesday = month + 1;
