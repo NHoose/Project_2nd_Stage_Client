@@ -126,10 +126,10 @@ public class CalendarFragment extends Fragment implements OnClickListener {
 
 
                     if (x == 1){
-                        if (monthThursday == 12){x = 12;}
-                        if (monthWensday == 12){x = 12;}
-                        if (monthThuesday == 12){x = 12;}
-                        if (month == 12){x = 12;}
+                        if (monthThursday == 12) {x = 12;
+                        }else if (monthWensday == 12){x = 12;
+                        }else if (monthThuesday == 12){x = 12;
+                        }else if (month == 12){x = 12;}
                     }
 
                     minMonth = x;
@@ -452,8 +452,31 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                     thursday    = thursday - 7;
                     friday      = friday   - 7;
 
-                    if (monday < 1) {
-                        if (month == 1) {
+                    if (month < monthThuesday){
+                        x = monthThuesday;
+                        if(monthThuesday < monthWensday){
+                            x = monthWensday;
+                            if(monthWensday < monthThursday){
+                                x = monthThursday;
+                                if(monthThursday < monthFriday){
+                                    x = monthFriday;
+                                }
+                            }
+                        }
+                    }else {x = month;}
+
+
+                    if (x == 12){
+                        if (monthThursday == 1){x = 1;}
+                        if (monthWensday == 1){x = 1;}
+                        if (monthThuesday == 1){x = 1;}
+                        if (month == 1){x = 1;}
+                    }
+
+                    minMonth = x;
+
+                    if (monday < 1 || friday < 1) {
+                        if (minMonth == 1) {
                             monday = 31 + monday;
                             month = 12;
                             year--;
@@ -485,7 +508,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 2) {
+                        } else if (minMonth == 2) {
                                 monday = 31 + monday;
                                 month = 1;
                                 monthThuesday = month + 1;
@@ -509,7 +532,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                                 }
-                        } else if (month == 3) {
+                        } else if (minMonth == 3) {
                             if (year == 2012 || year == 2016 || year == 2020 || year == 2024 || year == 2028 || year == 2032 || year == 2036 || year == 2040) {
                                 monday = 29 + monday;
                                 month = 2;
@@ -559,7 +582,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                     yearFriday = year;
                                 }
                             }
-                        }else if (month == 4) {
+                        }else if (minMonth == 4) {
                             monday = 31 + monday;
                             month = 3;
                             monthThuesday = month + 1;
@@ -583,7 +606,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 5) {
+                        } else if (minMonth == 5) {
                             monday = 30 + monday;
                             month = 4;
                             monthThuesday = month + 1;
@@ -607,7 +630,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 6) {
+                        } else if (minMonth == 6) {
                             monday = 31 + monday;
                             month = 5;
                             monthThuesday = month + 1;
@@ -631,7 +654,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 7) {
+                        } else if (minMonth == 7) {
                             monday = 30 + monday;
                             month = 6;
                             monthThuesday = month + 1;
@@ -655,7 +678,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 8) {
+                        } else if (minMonth == 8) {
                             monday = 31 + monday;
                             month = 7;
                             monthThuesday = month + 1;
@@ -679,7 +702,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 9) {
+                        } else if (minMonth == 9) {
                             monday = 31 + monday;
                             month = 8;
                             monthThuesday = month + 1;
@@ -703,7 +726,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 10) {
+                        } else if (minMonth == 10) {
                             monday = 30 + monday;
                             month = 9;
                             monthThuesday = month + 1;
@@ -727,7 +750,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 11) {
+                        } else if (minMonth == 11) {
                             monday = 31 + monday;
                             month = 10;
                             monthThuesday = month + 1;
@@ -751,7 +774,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                                 monthFriday = month;
                                 yearFriday = year;
                             }
-                        } else if (month == 12) {
+                        } else if (minMonth == 12) {
                             monday = 30 + monday;
                             month = 11;
                             monthThuesday = month + 1;
