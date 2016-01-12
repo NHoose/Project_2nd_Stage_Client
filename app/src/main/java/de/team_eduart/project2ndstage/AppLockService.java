@@ -31,17 +31,11 @@ public class AppLockService extends Service {
     @Override
     public void onCreate() {
 
-        Toast.makeText(getApplicationContext(), "Apps gesperrt!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "AppLockService gestartet", Toast.LENGTH_SHORT).show();
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(mTimerTask = new TimerTask() {
             public void run() {
-
-                /*
-                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                final ActivityManager.RunningTaskInfo top = am.getRunningTasks(1).get(0);
-                final String packageName = top.topActivity.getPackageName();
-                */
 
                 String TopActivity;
                 if (Build.VERSION.SDK_INT >= 21) {
@@ -52,19 +46,17 @@ public class AppLockService extends Service {
 
                 Log.d("LockService", TopActivity);
 
-                /*
+
                 if (Arrays.asList(blacklistedApps).contains(TopActivity)) {
 
-                    Toast.makeText(getApplicationContext(), "gesperrte App", Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(getApplicationContext(), "gesperrte App", Toast.LENGTH_SHORT).show();
 
                     Intent launchIntent = new Intent(getBaseContext(), LockedApp.class);
                     launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getApplication().startActivity(launchIntent);
 
-
                 }
-                */
+
             }
         }, 0, 1000);
 
@@ -122,7 +114,7 @@ public class AppLockService extends Service {
     public void onDestroy() {
         super.onDestroy();
         mTimerTask.cancel();
-        Toast.makeText(getApplicationContext(), "Apps entsperrt!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "AppLockService gestoppt", Toast.LENGTH_SHORT).show();
 
     }
 

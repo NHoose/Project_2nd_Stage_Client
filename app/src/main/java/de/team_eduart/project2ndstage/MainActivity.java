@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
                         Logout();
                         return true;
+                    case R.id.NavItem_TeacherPanel:
+                        mDrawerLayout.closeDrawers();
+                        Intent openTeacherPanel = new Intent(MainActivity.this, TeacherPanel.class);
+                        startActivity(openTeacherPanel);
+                        return true;
                     default:
                         return true;
                 }
@@ -243,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Logout() {
+        stopService(new Intent(MainActivity.this, ServerCheckService.class));
         stopService(new Intent(MainActivity.this, AppLockService.class));
 
         // eigentlich erst wenn erfolgreich ausgeloggt
@@ -267,15 +273,23 @@ public class MainActivity extends AppCompatActivity {
 
         Boolean LoggedIn = NetworkState.getBoolean("LoggedIn", false);
         String Username = NetworkState.getString("Username", "Max Musterschüler");
+        String Group = NetworkState.getString("Group", "Unknown");
 
         TextView NavDrawerUsername = (TextView)findViewById(R.id.NavDrawerUsername);
 
         if (LoggedIn) {
-            Menu menu = mNavigationView.getMenu();
-            menu.clear();
-            mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
-            NavDrawerUsername.setText(Username);
-            reselectLastFragment();
+            if (Group.equals("Teacher")) {
+                Menu menu = mNavigationView.getMenu();
+                menu.clear();
+                mNavigationView.inflateMenu(R.menu.navdrawer_teacher);
+                reselectLastFragment();
+            } else {
+                Menu menu = mNavigationView.getMenu();
+                menu.clear();
+                mNavigationView.inflateMenu(R.menu.navdrawer_loggedin);
+                NavDrawerUsername.setText(Username);
+                reselectLastFragment();
+            }
         } else {
             Menu menu = mNavigationView.getMenu();
             menu.clear();
@@ -283,6 +297,8 @@ public class MainActivity extends AppCompatActivity {
             NavDrawerUsername.setText("Max Musterschüler");
             reselectLastFragment();
         }
+
+
     }
 
     private void reselectLastFragment() {
