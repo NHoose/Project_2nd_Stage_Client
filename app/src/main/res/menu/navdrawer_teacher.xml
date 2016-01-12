@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/MainFragments"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/NavItem_Home"
+            android:icon="@drawable/home_black"
+            android:title="@string/NavDrawer_Home" />
+        <item
+            android:id="@+id/NavItem_Cal"
+            android:icon="@drawable/calendar_black"
+            android:title="@string/NavDrawer_Calendar" />
+        <item
+            android:id="@+id/NavItem_Mail"
+            android:icon="@drawable/mail_black"
+            android:title="@string/NavDrawer_Mail" />
+        <item
+            android:id="@+id/NavItem_Notifications"
+            android:icon="@drawable/news_black"
+            android:title="@string/NavDrawer_Notifications" />
+    </group>
+
+    <group android:id="@+id/more"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/NavItem_TeacherPanel"
+            android:title="@string/NavDrawer_TeacherPanel" />
+        <item
+            android:id="@+id/NavItem_Settings"
+            android:title="@string/NavDrawer_Settings" />
+        <item
+            android:id="@+id/NavItem_Logout"
+            android:title="@string/NavDrawer_Logout" />
+    </group>
+</menu>

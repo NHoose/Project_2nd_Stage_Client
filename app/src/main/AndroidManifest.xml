@@ -61,6 +61,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.team_eduart.project2ndstage.MainActivity" />
         </activity>
+        <activity
+            android:name=".TeacherPanel"
+            android:label="@string/title_activity_teacher_panel">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.team_eduart.project2ndstage.MainActivity" />
+        </activity>
+
+        <service
+            android:name=".ServerCheckService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

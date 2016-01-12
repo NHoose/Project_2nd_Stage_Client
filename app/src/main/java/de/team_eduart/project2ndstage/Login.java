@@ -52,22 +52,6 @@ public class Login extends ActionBarActivity {
 
                 String ServerIP = NetworkState.getString("ServerIP", null);
 
-                /*Hardcoded als Test
-                if (Username.equals("Admin")) {
-                    if (Password.equals("1234")) {
-                        editor.putBoolean("LoggedIn", true);
-                        editor.putString("Username", Username);
-                        editor.apply();
-
-                        Toast.makeText(getApplicationContext(), "Eingeloggt als " + Username, Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "falsches Passwort", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "unbekannter Benutzername", Toast.LENGTH_SHORT).show();
-                }
-                */
 
                 params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("userid", Username));
@@ -80,13 +64,19 @@ public class Login extends ActionBarActivity {
                         if(json.getBoolean("res")){
                             editor.putBoolean("LoggedIn", true);
                             editor.putString("Username", Username);
+                            if(jsonstr.equals("Schueler")) {
+                                editor.putString("Group", "Student");
+                                startService(new Intent(Login.this, ServerCheckService.class));
+                                Toast.makeText(getApplicationContext(), "erfolgreich als Schüler eingeloggt", Toast.LENGTH_LONG).show();
+                            } else if(jsonstr.equals("Lehrer")) {
+                                editor.putString("Group", "Teacher");
+                                Toast.makeText(getApplicationContext(), "erfolgreich als Lehrer eingeloggt", Toast.LENGTH_LONG).show();
+                            }
                             editor.apply();
-                            startService(new Intent(Login.this, AppLockService.class));
                             finish();
+                        } else {
+                            Toast.makeText(getApplication(),jsonstr,Toast.LENGTH_LONG).show();
                         }
-
-                        Toast.makeText(getApplication(),jsonstr,Toast.LENGTH_LONG).show();
-
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }

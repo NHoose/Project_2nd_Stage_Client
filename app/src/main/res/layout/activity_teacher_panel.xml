@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.team_eduart.project2ndstage.TeacherPanel">
+
+    <include layout="@layout/toolbar_blank" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datei schicken"
+        android:id="@+id/BtnSendFile"
+        android:layout_marginLeft="75dp"
+        android:layout_marginStart="75dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apps sperren"
+        android:id="@+id/BtnLockApps"
+        android:layout_marginRight="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_above="@+id/BtnSendFile"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apps entsperren"
+        android:id="@+id/BtnUnlockApps"
+        android:layout_alignBottom="@+id/BtnSendFile"
+        android:layout_alignRight="@+id/BtnLockApps"
+        android:layout_alignEnd="@+id/BtnLockApps" />
+</RelativeLayout>
