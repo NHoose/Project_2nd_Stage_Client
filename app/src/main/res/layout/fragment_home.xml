@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textClock"
             android:textSize="60dp"
-            android:layout_below="@+id/BtnAppList"
+            android:layout_marginTop="80dp"
             android:layout_alignLeft="@+id/imageView"
             android:layout_alignStart="@+id/imageView"
             android:layout_marginLeft="87dp"
