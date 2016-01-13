@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:layout_gravity="center"
-        android:src="@drawable/news-fake"/>
+        android:src="@drawable/news_fake"/>
 </FrameLayout>
