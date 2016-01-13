@@ -63,7 +63,7 @@
         </activity>
         <activity
             android:name=".TeacherPanel"
-            android:label="@string/title_activity_teacher_panel">
+            android:label="@string/title_activity_teacher_panel"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape">
             <meta-data

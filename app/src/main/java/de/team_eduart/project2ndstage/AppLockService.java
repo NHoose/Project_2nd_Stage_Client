@@ -23,7 +23,7 @@ public class AppLockService extends Service {
     public AppLockService() {
     }
 
-    String[] blacklistedApps = {"com.android.settings", "com.android.dialer"};
+    String[] blacklistedApps = {"com.android.settings", "com.android.dialer", "com.android.chrome"};
 
     TimerTask mTimerTask;
 

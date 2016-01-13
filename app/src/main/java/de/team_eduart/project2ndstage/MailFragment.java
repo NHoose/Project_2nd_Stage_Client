@@ -1,7 +1,9 @@
 package de.team_eduart.project2ndstage;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,13 +34,20 @@ public class MailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_mail, container, false);
 
         final PackageManager manager = this.getActivity().getPackageManager();
+        final SharedPreferences NetworkState = this.getActivity().getSharedPreferences("NetworkState", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = NetworkState.edit();
 
         Button OpenFileButton = (Button)rootView.findViewById(R.id.BtnOpenFile);
         OpenFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                editor.putBoolean("newMail", false);
+                editor.apply();
+
                 Intent openFile = manager.getLaunchIntentForPackage("com.adobe.reader");
                 startActivity(openFile);
+
             }
         });
 

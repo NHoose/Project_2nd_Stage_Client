@@ -29,6 +29,7 @@ public class ServerCheckService extends Service {
     public void onCreate() {
 
         final SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = NetworkState.edit();
         final String ServerIP = NetworkState.getString("ServerIP", null);
         final String Username = NetworkState.getString("Username", "Schueler");
 
@@ -62,9 +63,29 @@ public class ServerCheckService extends Service {
                 JSONObject json2 = sr2.getJSON("http://"+ ServerIP +":8080/filesend",params);
                 if(json2 != null){
                     try{
-                        String jsonstr = json2.getString("response");
+                        String jsonstr2 = json2.getString("response");
                         if(json2.getBoolean("res")){
                             Log.d("ServerCheck", "neue Datei gefunden");
+
+                            editor.putBoolean("newMail", true);
+                            editor.apply();
+
+                            params = new ArrayList<NameValuePair>();
+                            params.add(new BasicNameValuePair("userid", Username));
+                            params.add(new BasicNameValuePair("operation", "gelesen"));
+                            ServerRequest sr3 = new ServerRequest();
+                            JSONObject json3 = sr3.getJSON("http://"+ ServerIP +":8080/filesend",params);
+                            if(json3 != null){
+                                try{
+                                    String jsonstr3 = json3.getString("response");
+                                    Log.d("ServerCheck", jsonstr3);
+                                }catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "keine Serververbindung", Toast.LENGTH_LONG).show();
+                            }
+
                         } else {
                             Log.d("ServerCheck", "keine neue Datei gefunden");
                         }

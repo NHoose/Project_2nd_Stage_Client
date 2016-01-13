@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Button NotificationsButton;
 
     String CurrentlySelectedFragment;
+
+    TimerTask mTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
         //check current LoginState and change NavDrawer
         refreshNetworkState();
+
+        CheckForNotification();
 
         HomeButton = (Button) findViewById(R.id.BtnHome);
         CalButton = (Button) findViewById(R.id.BtnCal);
@@ -313,10 +320,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void CheckForNotification(){
+        final SharedPreferences NetworkState = this.getSharedPreferences("NetworkState", MODE_PRIVATE);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(mTimerTask = new TimerTask() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Boolean newMail = NetworkState.getBoolean("newMail", false);
+                        if (newMail){
+                            MailButton = (Button) findViewById(R.id.BtnMail);
+                            MailButton.setBackgroundResource(R.drawable.mail_black_newmail);
+                        }
+
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
 
+        CheckForNotification();
         refreshNetworkState();
         SwitchToHome();
     }
